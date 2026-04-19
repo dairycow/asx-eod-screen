@@ -153,6 +153,7 @@ def main():
     ss.set_symbol_types(SymbolType.COMMON_STOCK, SymbolType.ETF)
     ss.where(StockField.PRICE > 0.05)
     ss.where(StockField.CHANGE_PERCENT.not_between(-8, 8))
+    ss.where(StockField.AVGVALUE_TRADED_10D > 200000)
     ss.select(
         StockField.NAME,
         StockField.PRICE,
