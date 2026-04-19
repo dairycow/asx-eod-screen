@@ -1,3 +1,4 @@
+import os
 import re
 from datetime import datetime, timedelta
 
@@ -118,6 +119,28 @@ def post_to_discord(sym: str, name: str, price: float, chg: float, chg_abs: floa
         pass
 
 
+def post_watchlist(tickers: list[str]):
+    global DISCORD_WEBHOOK_URL
+    if not DISCORD_WEBHOOK_URL:
+        return
+
+    body = ", ".join(tickers)
+
+    payload = {
+        "embeds": [{
+            "title": "TradingView Watchlist",
+            "description": f"Copy/paste into TradingView:\n\n{body}",
+            "color": 0x5865F2,
+            "footer": {"text": f"Total: {len(tickers)} stocks"},
+        }]
+    }
+
+    try:
+        requests.post(DISCORD_WEBHOOK_URL, json=payload, timeout=10)
+    except Exception:
+        pass
+
+
 def main():
     global DISCORD_WEBHOOK_URL
     DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
@@ -174,7 +197,9 @@ def main():
 
         post_to_discord(sym, name, price, chg, chg_abs, vol, mcap, sector, catalyst)
 
+    post_watchlist(symbols)
+    print(f"Watchlist posted: {len(symbols)} stocks")
+
 
 if __name__ == "__main__":
-    import os
     main()
