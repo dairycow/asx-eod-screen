@@ -1,0 +1,12 @@
+[project]
+name = "asx-eod-screen"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "lxml>=6.1.0",
+    "pandas>=3.0.2",
+    "python-dotenv>=1.2.2",
+    "tvscreener>=0.3.0",
+]
