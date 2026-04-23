@@ -6,7 +6,9 @@ requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.14.3",
     "lxml>=6.1.0",
+    "mplfinance>=0.12.10b0",
     "pandas>=3.0.2",
     "python-dotenv>=1.2.2",
     "tvscreener>=0.3.0",
+    "yfinance>=0.2.54",
 ]
