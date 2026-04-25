@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, date
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import holidays
 import mplfinance as mpf
 import pandas as pd
 import requests
@@ -300,7 +301,17 @@ def main():
 
     ensure_dirs()
 
-    today_str = date.today().strftime("%Y-%m-%d")
+    today_au = datetime.now(TZ_SYD).date()
+    if today_au.weekday() >= 5:
+        print(f"Weekend ({today_au.strftime('%A')}), skipping.")
+        return
+
+    au_holidays = holidays.Australia(prov="NSW")
+    if today_au in au_holidays:
+        print(f"Public holiday ({au_holidays.get(today_au)}), skipping.")
+        return
+
+    today_str = today_au.strftime("%Y-%m-%d")
 
     ss = StockScreener()
     ss.set_markets(Market.AUSTRALIA)

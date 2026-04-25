@@ -5,6 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.13"
 dependencies = [
     "beautifulsoup4>=4.14.3",
+    "holidays>=0.70",
     "lxml>=6.1.0",
     "mplfinance>=0.12.10b0",
     "pandas>=3.0.2",
