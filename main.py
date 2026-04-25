@@ -272,12 +272,14 @@ def post_watchlist(tickers: list[str]):
     if not DISCORD_WEBHOOK_URL:
         return
 
-    body = ", ".join(tickers)
+    tv_list = ",".join(tickers)
 
     payload = {
         "embeds": [{
             "title": "TradingView Watchlist",
-            "description": f"Copy/paste into TradingView:\n\n{body}",
+            "fields": [
+                {"name": "TradingView Watchlist", "value": f"```\n{tv_list}\n```", "inline": False},
+            ],
             "color": 0x5865F2,
             "footer": {"text": f"Total: {len(tickers)} stocks"},
         }]
