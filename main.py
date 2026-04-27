@@ -308,8 +308,12 @@ def main():
 
     au_holidays = holidays.Australia(prov="NSW")
     if today_au in au_holidays:
-        print(f"Public holiday ({au_holidays.get(today_au)}), skipping.")
-        return
+        holiday_name = au_holidays.get(today_au)
+        if "ANZAC" in holiday_name and "observed" in holiday_name:
+            print(f"ANZAC Day observed ({today_au.strftime('%A')}), ASX still open - continuing.")
+        else:
+            print(f"Public holiday ({holiday_name}), skipping.")
+            return
 
     today_str = today_au.strftime("%Y-%m-%d")
 
